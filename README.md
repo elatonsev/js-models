@@ -1,12 +1,18 @@
 # Js Models
-Package allows to describe models in your app, create model objects from the REST API payload and
-serivalize model object to JSON.
+Package allows to describe models with relations in your app, create model objects from the REST API payload and
+serialize model object to JSON.
 
+# Installation
+```
+yarn add js-models
+```
 
-# Example
+# Examples
 
 ### Define models
 ```javascript
+import { Model, attr, belongsTo, hasMany } from 'js-models';
+
 class Client extends Model {
   name = attr('string');
 }
