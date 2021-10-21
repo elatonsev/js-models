@@ -1,0 +1,36 @@
+{
+  "name": "js-models",
+  "version": "1.0.0",
+  "description": "Frontend models definition",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elatonsev/js-models.git"
+  },
+  "keywords": [
+    "js",
+    "models",
+    "models",
+    "with",
+    "relations",
+    "rest",
+    "api",
+    "models"
+  ],
+  "author": "Elatonsev Mihail",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elatonsev/js-models/issues"
+  },
+  "homepage": "https://github.com/elatonsev/js-models#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "jest": "^27.3.1"
+  }
+}
