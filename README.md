@@ -4,14 +4,14 @@ serialize model object to JSON.
 
 # Installation
 ```
-yarn add js-models
+yarn add @elatonsev/js-models
 ```
 
 # Examples
 
 ### Define models
 ```javascript
-import { Model, attr, belongsTo, hasMany } from 'js-models';
+import { Model, attr, belongsTo, hasMany } from '@elatonsev/js-models';
 
 class Client extends Model {
   name = attr('string');

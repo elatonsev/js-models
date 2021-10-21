@@ -1,5 +1,5 @@
 {
-  "name": "js-models",
+  "name": "@elatonsev/js-models",
   "version": "1.0.0",
   "description": "Frontend models definition",
   "main": "index.js",
