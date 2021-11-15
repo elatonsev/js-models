@@ -31,6 +31,28 @@ class Order extends Model {
 }
 ```
 
+### Define models using TypeScript
+```javascript
+import { Model, attr, belongsTo, hasMany } from '@elatonsev/js-models';
+
+class Client extends Model {
+  name = attr('string');
+}
+
+class Product extends Model {
+  name = attr('string');
+}
+
+class Order extends Model {
+  name = attr('string', {defaultValue: 'Hi'});
+  number = attr('number', {defaultValue: 0});
+  is_valid = attr('boolean');
+  date = attr('date');
+  products = hasMany<Product>(Product);
+  client = belongsTo<Client>(Client);
+}
+```
+
 ### Create objects from nested JSON payload
 ```javascript
 const order = new Order().pushPayload({

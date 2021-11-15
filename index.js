@@ -90,7 +90,7 @@ class Attr {
 class Model {
   id = attr('string');
 
-  constructor (data) {
+  constructor () {
     return new Proxy(this, {
       set: (object, key, value) => {
         if (object[key] instanceof Relation || object[key] instanceof Attr) {
