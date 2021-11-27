@@ -4,9 +4,8 @@ import moment from 'moment';
  * Relaton abstract class
  */
 class Relation {
-  value = null;
-
   constructor (model) {
+    this.value = null;
     this.model = model;
   }
 
@@ -32,7 +31,10 @@ class BelongsToRelation extends Relation {
  * One-To-Many relation
  */
 class HasManyRelation extends Relation {
-  value = [];
+  constructor (model) {
+    super(model);
+    this.value = [];
+  }
 
   setValue(values) {
     this.value = values.map(value => {
@@ -49,11 +51,9 @@ class HasManyRelation extends Relation {
  * Modal attribute
  */
 class Attr {
-  value = null;
-  params = null;
-
   constructor (type, params={}) {
     this.type = type;
+    this.value = null;
     this.params = params;
 
     if ('defaultValue' in params) {
@@ -88,9 +88,9 @@ class Attr {
  * Model class
  */
 class Model {
-  id = attr('string');
-
   constructor () {
+    this.id = attr('string');
+
     return new Proxy(this, {
       set: (object, key, value) => {
         if (object[key] instanceof Relation || object[key] instanceof Attr) {
