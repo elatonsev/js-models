@@ -76,6 +76,9 @@ class Attr {
       case 'boolean':
         this.value = Boolean(value);
         break;
+      case 'as-is':
+        this.value = value;
+        break;
     }
   }
 
