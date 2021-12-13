@@ -15,6 +15,7 @@ import { Model, attr, belongsTo, hasMany } from '@elatonsev/js-models';
 
 class Client extends Model {
   name = attr('string');
+  schedule = attr('json', {defaultValue: []});
 }
 
 class Product extends Model {
@@ -37,6 +38,8 @@ import { Model, attr, belongsTo, hasMany } from '@elatonsev/js-models';
 
 class Client extends Model {
   name = attr('string');
+  custom_array = attr('json', {defaultValue: []});
+  custom_object = attr('json', {defaultValue: {}});
 }
 
 class Product extends Model {
@@ -71,7 +74,9 @@ const order = new Order().pushPayload({
   }],
   client: {
     id: 1,
-    name: 'Client1'
+    name: 'Client1',
+    custom_array: [500, 512, 525, 640],
+    custom_object: {'key1': 'value1', 'key2': {'nested_key1': 'nested_value'}}
   }
 });
 ```

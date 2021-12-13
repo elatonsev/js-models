@@ -28,20 +28,27 @@ class BelongsToRelation extends Relation {
 }
 
 /**
+ * Class for storing HasManyRelations
+ */
+class HasManyRelationValue extends Array {};
+
+/**
  * One-To-Many relation
  */
 class HasManyRelation extends Relation {
   constructor (model) {
     super(model);
-    this.value = [];
+    this.value = new HasManyRelationValue();
   }
 
   setValue(values) {
-    this.value = values.map(value => {
+    this.value = new HasManyRelationValue();
+
+    values.forEach(value => {
       if (value instanceof this.model) {
-        return value;
+        this.value.push(value);
       } else {
-        return new this.model().pushPayload(value);
+        this.value.push(new this.model().pushPayload(value));
       }
     });
   }
@@ -76,7 +83,7 @@ class Attr {
       case 'boolean':
         this.value = Boolean(value);
         break;
-      case 'as-is':
+      case 'json':
         this.value = value;
         break;
     }
@@ -134,8 +141,11 @@ class Model {
       if (this[key] instanceof Model) {
         resultJSON[key] = this[key].serialize();
       }
-      else if (this[key] instanceof Array) {
-        resultJSON[key] = this[key].map(model => model.serialize());
+      else if (this[key] instanceof HasManyRelationValue) {
+        resultJSON[key] = [];
+        this[key].forEach(model => {
+          resultJSON[key].push(model.serialize());
+        });
       }
       else {
         resultJSON[key] = this[key];

@@ -3,6 +3,8 @@ import { Model, attr, belongsTo, hasMany } from './index';
 
 class Client extends Model {
   name = attr('string');
+  custom_array = attr('json', {defaultValue: []});
+  custom_object = attr('json', {defaultValue: {}});
 }
 
 class Product extends Model {
@@ -22,9 +24,11 @@ class Order extends Model {
 test('Create model object', () => {
   const order = new Order();
   order.name = 'Test name';
+  order.products.push(new Product().pushPayload({id: 1, name: 'Test product'}));
 
   expect(order.name).toBe('Test name');
   expect(order.is_valid).toBe(false);
+  expect(order.products[0].name).toBe('Test product');
 });
 
 test('Push payload', () => {
@@ -44,7 +48,9 @@ test('Push payload', () => {
     }],
     client: {
       id: 1,
-      name: 'Client1'
+      name: 'Client1',
+      custom_array: [500, 512, 525, 640],
+      custom_object: {'key1': 'value1', 'key2': {'nested_key1': 'nested_value'}}
     }
   });
 
@@ -76,7 +82,9 @@ test('Serialize object', () => {
     }],
     client: {
       id: 1,
-      name: 'Client1'
+      name: 'Client1',
+      custom_array: [500, 512, 525, 640],
+      custom_object: {'key1': 'value1', 'key2': {'nested_key1': 'nested_value'}}
     }
   });
 
@@ -94,6 +102,11 @@ test('Serialize object', () => {
     is_valid: false,
     date: '2021-05-06',
     products: [ { id: '2', name: 'Maffin' }, { id: '3', name: 'Coffee' } ],
-    client: { id: '1', name: 'Client1' }
+    client: {
+      id: '1',
+      name: 'Client1',
+      custom_array: [500, 512, 525, 640],
+      custom_object: {'key1': 'value1', 'key2': {'nested_key1': 'nested_value'}}
+    }
   });
 });
