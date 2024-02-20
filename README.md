@@ -25,7 +25,7 @@ class Product extends Model {
 class Order extends Model {
   name = attr('string', {defaultValue: 'Hi'});
   number = attr('number', {defaultValue: 0});
-  is_valid = attr('boolean');
+  isValid = attr('boolean');
   date = attr('date');
   products = hasMany(Product);
   client = belongsTo(Client);
@@ -38,8 +38,8 @@ import { Model, attr, belongsTo, hasMany } from '@elatonsev/js-models';
 
 class Client extends Model {
   name = attr('string');
-  custom_array = attr('json', {defaultValue: []});
-  custom_object = attr('json', {defaultValue: {}});
+  customArray = attr('json', {defaultValue: []});
+  customObject = attr('json', {defaultValue: {}});
 }
 
 class Product extends Model {
@@ -49,7 +49,7 @@ class Product extends Model {
 class Order extends Model {
   name = attr('string', {defaultValue: 'Hi'});
   number = attr('number', {defaultValue: 0});
-  is_valid = attr('boolean');
+  isValid = attr('boolean');
   date = attr('date');
   products = hasMany<Product>(Product);
   client = belongsTo<Client>(Client);

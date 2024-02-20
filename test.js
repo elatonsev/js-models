@@ -3,8 +3,8 @@ import { Model, attr, belongsTo, hasMany } from './index';
 
 class Client extends Model {
   name = attr('string');
-  custom_array = attr('json', {defaultValue: []});
-  custom_object = attr('json', {defaultValue: {}});
+  customArray = attr('json', {defaultValue: []});
+  customObject = attr('json', {defaultValue: {}});
 }
 
 class Product extends Model {
@@ -14,7 +14,7 @@ class Product extends Model {
 class Order extends Model {
   name = attr('string', {defaultValue: 'Hi'});
   number = attr('number', {defaultValue: 0});
-  is_valid = attr('boolean', {defaultValue: false});
+  isValid = attr('boolean', {defaultValue: false});
   date = attr('date');
   products = hasMany(Product);
   client = belongsTo(Client);
@@ -24,10 +24,11 @@ class Order extends Model {
 test('Create model object', () => {
   const order = new Order();
   order.name = 'Test name';
+  order.isValid = true;
   order.products.push(new Product().pushPayload({id: 1, name: 'Test product'}));
 
   expect(order.name).toBe('Test name');
-  expect(order.is_valid).toBe(false);
+  expect(order.isValid).toBe(true);
   expect(order.products[0].name).toBe('Test product');
 });
 
@@ -36,7 +37,7 @@ test('Push payload', () => {
     id: 1,
     date: '2021-05-06',
     name: 'Test name',
-    is_valid: false,
+    is_valid: true,
     number: '123',
     products: [{
       id: 2,
@@ -60,6 +61,7 @@ test('Push payload', () => {
 
   expect(order.name).toBe('Test name');
   expect(order.number).toBe(123);
+  expect(order.isValid).toBe(true);
   expect(order.date).toStrictEqual(moment('2021-05-06').toDate());
   expect(order.client.name).toBe('Client1');
   expect(order.products[0].name).toBe('Maffin');

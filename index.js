@@ -120,14 +120,22 @@ class Model {
     });
   }
 
+  convertLocalKeyToServerKey(key) {
+    // Преобразование формата локального ключа к серверному.
+    // По умолчанию локальные ключи camelCased, серверные snake_case
+    return key.split(/\.?(?=[A-Z])/).join('_').toLowerCase();
+  }
+
   pushPayload (data={}) {
-    for (let key in this) {
+    for (let localKey in this) {
+      let serverKey = this.convertLocalKeyToServerKey(localKey);
+
       // В payload есть данные для этого ключа
-      if (key in data && data[key] != null) {
-        if (this[key] instanceof Relation || this[key] instanceof Attr) {
-          this[key].setValue(data[key]);
+      if (serverKey in data && data[serverKey] != null) {
+        if (this[localKey] instanceof Relation || this[localKey] instanceof Attr) {
+          this[localKey].setValue(data[serverKey]);
         } else {
-          this[key] = data[key];
+          this[localKey] = data[serverKey];
         }
       }
     }
@@ -137,18 +145,20 @@ class Model {
   serialize(serializer=null) {
     let resultJSON = {};
 
-    for (let key in this) {
-      if (this[key] instanceof Model) {
-        resultJSON[key] = this[key].serialize();
+    for (let localKey in this) {
+      let serverKey = this.convertLocalKeyToServerKey(localKey);
+
+      if (this[localKey] instanceof Model) {
+        resultJSON[serverKey] = this[localKey].serialize();
       }
-      else if (this[key] instanceof HasManyRelationValue) {
-        resultJSON[key] = [];
-        this[key].forEach(model => {
-          resultJSON[key].push(model.serialize());
+      else if (this[localKey] instanceof HasManyRelationValue) {
+        resultJSON[serverKey] = [];
+        this[localKey].forEach(model => {
+          resultJSON[serverKey].push(model.serialize());
         });
       }
       else {
-        resultJSON[key] = this[key];
+        resultJSON[serverKey] = this[localKey];
       }
     }
 
