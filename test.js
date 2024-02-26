@@ -12,7 +12,7 @@ class Product extends Model {
 }
 
 class Order extends Model {
-  name = attr('string', {defaultValue: 'Hi'});
+  name = attr('string');
   number = attr('number', {defaultValue: 0});
   isValid = attr('boolean', {defaultValue: false});
   date = attr('date');
@@ -27,9 +27,13 @@ test('Create model object', () => {
   order.isValid = true;
   order.products.push(new Product().pushPayload({id: 1, name: 'Test product'}));
 
+  expect(order.number).toBe(0);
   expect(order.name).toBe('Test name');
   expect(order.isValid).toBe(true);
   expect(order.products[0].name).toBe('Test product');
+
+  order.name = null;
+  expect(order.name).toBe(null);
 });
 
 test('Push payload', () => {

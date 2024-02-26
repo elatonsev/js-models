@@ -69,6 +69,15 @@ class Attr {
   }
 
   setValue(value) {
+    if (value === null) {
+      if ('defaultValue' in this.params) {
+        this.value = params.defaultValue;
+      } else {
+        this.value = null;
+      }
+      return;
+    }
+
     switch (this.type) {
       case 'number':
         this.value = Number(typeof value == 'string' ? value.replace(',', '.') : value);
