@@ -34,6 +34,10 @@ test('Create model object', () => {
 
   order.name = null;
   expect(order.name).toBe(null);
+
+  order.client = new Client();
+  order.client = null;
+  expect(order.client).toBe(null);
 });
 
 test('Push payload', () => {

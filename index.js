@@ -19,7 +19,9 @@ class Relation {
  */
 class BelongsToRelation extends Relation {
   setValue(value) {
-    if (value instanceof this.model) {
+    if (value === null) {
+      this.value = null;
+    } else if (value instanceof this.model) {
       this.value = value;
     } else {
       this.value = new this.model().pushPayload(value);
@@ -42,15 +44,19 @@ class HasManyRelation extends Relation {
   }
 
   setValue(values) {
-    this.value = new HasManyRelationValue();
+    if (values === null) {
+      this.value = null;
+    } else {
+      this.value = new HasManyRelationValue();
 
-    values.forEach(value => {
-      if (value instanceof this.model) {
-        this.value.push(value);
-      } else {
-        this.value.push(new this.model().pushPayload(value));
-      }
-    });
+      values.forEach(value => {
+        if (value instanceof this.model) {
+          this.value.push(value);
+        } else {
+          this.value.push(new this.model().pushPayload(value));
+        }
+      });
+    }
   }
 }
 

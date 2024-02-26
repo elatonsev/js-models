@@ -1,6 +1,6 @@
 {
   "name": "@elatonsev/js-models",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Frontend models definition",
   "main": "index.js",
   "types": "index.d.ts",
