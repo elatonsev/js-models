@@ -78,7 +78,7 @@ test('Push payload', () => {
 test('Serialize object', () => {
   const order = new Order().pushPayload({
     id: 1,
-    date: '2021-05-06',
+    date: '2024-07-03T14:04:13',
     name: 'Test name',
     is_valid: false,
     number: '123',
@@ -110,7 +110,7 @@ test('Serialize object', () => {
     name: 'Test name',
     number: 123,
     is_valid: false,
-    date: '2021-05-06',
+    date: '2024-07-03',
     products: [ { id: '2', name: 'Maffin' }, { id: '3', name: 'Coffee' } ],
     client: {
       id: '1',

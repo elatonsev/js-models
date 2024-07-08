@@ -172,6 +172,9 @@ class Model {
           resultJSON[serverKey].push(model.serialize());
         });
       }
+      else if (this[localKey] instanceof Date) {
+        resultJSON[serverKey] = moment(this[localKey]).format('YYYY-MM-DDTHH:mm:ss');
+      }
       else {
         resultJSON[serverKey] = this[localKey];
       }
